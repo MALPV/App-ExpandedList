@@ -1,5 +1,6 @@
 package com.malpvaplicaciones.expandedlist
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.malpvaplicaciones.expandedlist.ui.theme.ExpandedListTheme
+import com.malpvaplicaciones.expandedlist.ui.theme.Shapes
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,17 +46,22 @@ fun MyApp() {
 fun OnboardingScreen(onContinueClicked: () -> Unit) {
     Surface {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.padding(12.dp).fillMaxSize(),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.Start
         ) {
-            Text("Welcome to the basic use of compose!")
+            Text("Welcome to the basic use of compose!",
+                style = MaterialTheme.typography.h5)
+            Text("First steps",
+                modifier = Modifier.padding(top = 12.dp),
+                style = MaterialTheme.typography.subtitle1)
             Button(
                 modifier = Modifier
-                    .padding(vertical = 24.dp),
+                    .padding(vertical = 24.dp)
+                    .align(Alignment.CenterHorizontally),
                 onClick = onContinueClicked
             ) {
-                Text("Join")
+                Text("continue")
             }
         }
     }
@@ -84,15 +91,16 @@ fun Greeting(name: String) {
     )
     Surface(
         color = MaterialTheme.colors.primary,
-        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp)
+        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
+        shape = Shapes.small
     ) {
         Row(modifier = Modifier.padding(24.dp)) {
             Column(modifier = Modifier
                 .weight(1f)
                 .padding(bottom = extraPadding.coerceAtLeast(0.dp))
             ) {
-                Text(text = "Hello,")
-                Text(text = name)
+                Text(text = "Hello,", style = MaterialTheme.typography.h6)
+                Text(text = name, style = MaterialTheme.typography.subtitle1)
             }
             OutlinedButton(
                 onClick = { expanded = !expanded }
@@ -103,7 +111,13 @@ fun Greeting(name: String) {
     }
 }
 
-@Preview(showBackground = true, widthDp = 320, heightDp = 320)
+@Preview(
+    showBackground = true,
+    widthDp = 320,
+    uiMode = UI_MODE_NIGHT_YES,
+    name = "DefaultPreviewDark"
+)
+@Preview(showBackground = true, widthDp = 320)
 @Composable
 fun GreetingsPreview() {
     ExpandedListTheme {
